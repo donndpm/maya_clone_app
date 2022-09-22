@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "745268134134",
+    "project_id": "maya-clone-app",
+    "storage_bucket": "maya-clone-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:745268134134:android:c9db4aeb11e7081b5dacd7",
+        "android_client_info": {
+          "package_name": "com.example.maya_clone_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "745268134134-fjojli7gis83fj7qtb0mlf56bpn94tnf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmNUU57thSAFGGhpPE7vN0bU9TtLnf964"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "745268134134-fjojli7gis83fj7qtb0mlf56bpn94tnf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
