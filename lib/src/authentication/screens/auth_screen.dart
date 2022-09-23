@@ -32,7 +32,7 @@ class AuthScreen extends StatelessWidget {
               ),
               AuthSecondaryBtn(label: 'Login'),
               const SizedBox(
-                height: 100,
+                height: 70,
               ),
             ],
           ),

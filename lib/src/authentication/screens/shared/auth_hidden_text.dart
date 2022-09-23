@@ -64,7 +64,7 @@ class _AuthHiddenTextState extends State<AuthHiddenText> {
                     hidePassword
                         ? FontAwesomeIcons.eyeSlash
                         : FontAwesomeIcons.eye,
-                    size: 20,
+                    size: 18,
                   ),
                 ),
               ),

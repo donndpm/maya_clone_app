@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:maya_clone_app/utils/constants.dart';
+import 'package:maya_clone_app/utils/upper_case_formatter.dart';
 
 class AuthInputText extends StatelessWidget {
   final TextEditingController controller;
   final String label;
-  final String placeholder;
+  final String? placeholder;
+  final bool? isEnable;
+  final TextInputAction? inputAction;
 
-  const AuthInputText(
-      {super.key,
-      required this.label,
-      required this.placeholder,
-      required this.controller});
+  const AuthInputText({
+    super.key,
+    required this.label,
+    this.placeholder,
+    required this.controller,
+    this.inputAction,
+    this.isEnable,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width < 768 ? double.infinity : 768,
+      width: kMinDeviceWidth(context),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kBorderRaduis),
         color: Theme.of(context).colorScheme.surfaceVariant,
@@ -35,6 +41,8 @@ class AuthInputText extends StatelessWidget {
               ),
             ),
             TextField(
+              enableSuggestions: false,
+              autocorrect: false,
               controller: controller,
               style: const TextStyle(
                 fontSize: 15,
@@ -46,6 +54,11 @@ class AuthInputText extends StatelessWidget {
                 isDense: true,
                 hintText: placeholder,
               ),
+              inputFormatters: [
+                UpperCaseFormatter(),
+              ],
+              textInputAction: inputAction,
+              enabled: isEnable ?? true,
             ),
           ],
         ),

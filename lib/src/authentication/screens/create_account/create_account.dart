@@ -14,6 +14,12 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final passwordController = TextEditingController();
+
   final pageController = PageController(
     initialPage: 0,
   );
@@ -43,10 +49,24 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     }
 
     List<Widget> pageViews = [
-      CreateAccountPage1(nextPage: nextPage),
-      CreateAccountPage2(nextPage: nextPage),
+      CreateAccountPage1(
+        nextPage: nextPage,
+        firstNameController: firstNameController,
+        lastNameController: lastNameController,
+        emailController: emailController,
+      ),
+      CreateAccountPage2(
+        nextPage: nextPage,
+        phoneNumberController: phoneNumberController,
+        passwordController: passwordController,
+      ),
       CreateAccountPage3(nextPage: nextPage),
-      CreateAccountPage4(),
+      CreateAccountPage4(
+        firstNameController: firstNameController,
+        lastNameController: lastNameController,
+        emailController: emailController,
+        phoneNumberController: phoneNumberController,
+      ),
     ];
 
     return Scaffold(

@@ -6,13 +6,16 @@ import '../shared/auth_primary_btn.dart';
 
 class CreateAccountPage2 extends StatelessWidget {
   final Function nextPage;
-  const CreateAccountPage2({super.key, required this.nextPage});
+  final TextEditingController phoneNumberController;
+  final TextEditingController passwordController;
+  const CreateAccountPage2(
+      {super.key,
+      required this.nextPage,
+      required this.phoneNumberController,
+      required this.passwordController});
 
   @override
   Widget build(BuildContext context) {
-    final firstNameController = TextEditingController();
-    final lastNameController = TextEditingController();
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
@@ -49,7 +52,8 @@ class CreateAccountPage2 extends StatelessWidget {
           AuthInputText(
             label: 'Phone number',
             placeholder: '09xx-xxx-xxxx',
-            controller: firstNameController,
+            controller: phoneNumberController,
+            inputAction: TextInputAction.next,
           ),
           const SizedBox(
             height: 10,
@@ -57,7 +61,7 @@ class CreateAccountPage2 extends StatelessWidget {
           AuthHiddenText(
             label: 'Password',
             placeholder: 'Enter password',
-            controller: lastNameController,
+            controller: passwordController,
           ),
           const Spacer(),
           AuthPrimaryBtn(
@@ -65,7 +69,7 @@ class CreateAccountPage2 extends StatelessWidget {
             onTap: () => nextPage(),
           ),
           const SizedBox(
-            height: 100,
+            height: 70,
           ),
         ],
       ),
