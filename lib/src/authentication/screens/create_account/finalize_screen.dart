@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
-import 'package:maya_clone_app/src/authentication/screens/shared/auth_primary_text_btn.dart';
 
 import '../shared/auth_primary_btn.dart';
 
-class CreateAccountPage1 extends StatelessWidget {
-  final Function nextPage;
+class FinalizeScreen extends StatelessWidget {
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
   final TextEditingController emailController;
+  final TextEditingController phoneNumberController;
 
-  const CreateAccountPage1(
-      {super.key,
-      required this.nextPage,
-      required this.firstNameController,
-      required this.lastNameController,
-      required this.emailController});
+  const FinalizeScreen({
+    super.key,
+    required this.firstNameController,
+    required this.lastNameController,
+    required this.emailController,
+    required this.phoneNumberController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CreateAccountPage1 extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 const Text(
-                  'Start an',
+                  'Finalize your',
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.w500,
@@ -39,7 +40,7 @@ class CreateAccountPage1 extends StatelessWidget {
                 Positioned(
                   top: 40,
                   child: Text(
-                    'account',
+                    'details',
                     style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.w500,
@@ -53,37 +54,56 @@ class CreateAccountPage1 extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          AuthInputText(
-            label: 'First name',
-            placeholder: 'Enter first name',
-            controller: firstNameController,
-            inputAction: TextInputAction.next,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                FontAwesomeIcons.circleInfo,
+                color: Theme.of(context).colorScheme.primary,
+                size: 20,
+              ),
+              const SizedBox(
+                width: 7,
+              ),
+              Text('Please review your details before proceeding.',
+                  style: Theme.of(context).textTheme.bodyMedium),
+            ],
           ),
           const SizedBox(
-            height: 10,
+            height: 20,
+          ),
+          AuthInputText(
+            label: 'First name',
+            controller: firstNameController,
+            isEnable: false,
+          ),
+          const SizedBox(
+            height: 8,
           ),
           AuthInputText(
             label: 'Last name',
-            placeholder: 'Enter last name',
             controller: lastNameController,
-            inputAction: TextInputAction.next,
+            isEnable: false,
           ),
           const SizedBox(
-            height: 10,
+            height: 8,
           ),
           AuthInputText(
-            label: 'Email',
-            placeholder: 'Enter email address',
+            label: 'Email address',
             controller: emailController,
-            inputAction: TextInputAction.done,
+            isEnable: false,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          AuthInputText(
+            label: 'Phone number',
+            controller: phoneNumberController,
+            isEnable: false,
           ),
           const Spacer(),
           AuthPrimaryBtn(
-            label: 'Continue',
-            onTap: () => nextPage(),
-          ),
-          AuthPrimaryTextBtn(
-            label: 'Log in to your existing account',
+            label: 'PROCEED',
             onTap: () {},
           ),
           const SizedBox(

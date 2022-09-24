@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'page_1.dart';
-import 'page_2.dart';
-import 'page_3.dart';
-import 'page_4.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../bloc/create_account/create_account_bloc.dart';
+import '../../bloc/page_controller/page_controller_cubit.dart';
+import 'personal_dtl_screen.dart';
+import 'login_dtl_screen.dart';
+import 'data_privacy_screen.dart';
+import 'finalize_screen.dart';
 
-class CreateAccountScreen extends StatefulWidget {
-  const CreateAccountScreen({super.key});
-
-  @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
-}
-
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class CreateAccountScreen extends StatelessWidget {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -25,6 +21,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   );
 
   var currentPage = 0;
+
+  CreateAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,29 +37,22 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       );
     }
 
-    prevPage() {
-      pageController.previousPage(
-        duration: const Duration(
-          milliseconds: 200,
-        ),
-        curve: Curves.easeIn,
-      );
-    }
-
     List<Widget> pageViews = [
-      CreateAccountPage1(
-        nextPage: nextPage,
+      PersonalDtlScreen(
+        pageController: pageController,
         firstNameController: firstNameController,
         lastNameController: lastNameController,
         emailController: emailController,
       ),
-      CreateAccountPage2(
-        nextPage: nextPage,
+      LoginDtlScreen(
+        pageController: pageController,
         phoneNumberController: phoneNumberController,
         passwordController: passwordController,
       ),
-      CreateAccountPage3(nextPage: nextPage),
-      CreateAccountPage4(
+      DataPrivacyScreen(
+        pageController: pageController,
+      ),
+      FinalizeScreen(
         firstNameController: firstNameController,
         lastNameController: lastNameController,
         emailController: emailController,
@@ -69,65 +60,79 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       ),
     ];
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        foregroundColor: Theme.of(context).colorScheme.onBackground,
-        leading: IconButton(
-          onPressed: () {
-            if (currentPage == 0) {
-              Navigator.pop(context);
-              return;
-            }
-
-            prevPage();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => PageControllerCubit()),
+        BlocProvider(create: (context) => CreateAccountBloc()),
+      ],
+      child: BlocListener<CreateAccountBloc, CreateAccountState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        child: BlocConsumer<PageControllerCubit, int>(
+          listener: (context, index) {
+            // TODO: implement listener
           },
-          icon: const Icon(FontAwesomeIcons.arrowLeft),
-        ),
-        elevation: 0.0,
-        title: Stack(
-          children: [
-            Container(
-              height: 2.0,
-              width: kProgressWidth,
-              color: const Color.fromARGB(255, 186, 186, 186),
-            ),
-            Positioned(
-              left: 0,
-              child: Container(
-                height: 2.0,
-                width: kProgressWidth * 0.25 * (currentPage + 1),
-                color: Colors.black,
+          builder: (context, index) {
+            return Scaffold(
+              resizeToAvoidBottomInset: false,
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                foregroundColor: Theme.of(context).colorScheme.onBackground,
+                leading: IconButton(
+                  onPressed: () {
+                    if (index == 0) {
+                      Navigator.pop(context);
+                      return;
+                    }
+
+                    BlocProvider.of<PageControllerCubit>(context)
+                        .togglePage(pageController, index, index - 1);
+                  },
+                  icon: const Icon(FontAwesomeIcons.arrowLeft),
+                ),
+                elevation: 0.0,
+                title: Stack(
+                  children: [
+                    Container(
+                      height: 2.0,
+                      width: kProgressWidth,
+                      color: const Color.fromARGB(255, 186, 186, 186),
+                    ),
+                    Positioned(
+                      left: 0,
+                      child: Container(
+                        height: 2.0,
+                        width: kProgressWidth * 0.25 * (index + 1),
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                actions: [
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Text(
+                        '${index + 1}/4',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
-          ],
-        ),
-        actions: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 20.0),
-              child: Text(
-                '${currentPage + 1}/4',
-                style: Theme.of(context).textTheme.titleLarge,
+              body: PageView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: pageController,
+                itemCount: pageViews.length,
+                itemBuilder: (context, index) {
+                  return pageViews[index];
+                },
               ),
-            ),
-          )
-        ],
-      ),
-      body: PageView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: pageController,
-        itemCount: pageViews.length,
-        itemBuilder: (context, index) {
-          return pageViews[index];
-        },
-        onPageChanged: (value) {
-          setState(() {
-            currentPage = value;
-          });
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,83 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 import 'package:maya_clone_app/utils/constants.dart';
 
+import '../../bloc/page_controller/page_controller_cubit.dart';
 import '../shared/auth_hidden_text.dart';
 import '../shared/auth_primary_btn.dart';
 
-class CreateAccountPage3 extends StatelessWidget {
-  final Function nextPage;
-  const CreateAccountPage3({
+class DataPrivacyScreen extends StatelessWidget {
+  final PageController pageController;
+
+  const DataPrivacyScreen({
     super.key,
-    required this.nextPage,
+    required this.pageController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Spacer(),
-          const Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Data Privacy',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 25,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+    return BlocBuilder<PageControllerCubit, int>(
+      builder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(
-                FontAwesomeIcons.circleInfo,
-                color: Theme.of(context).colorScheme.primary,
-                size: 20,
+              const Spacer(),
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Data Privacy',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
               const SizedBox(
-                width: 7,
+                height: 25,
               ),
-              const Text('Learn about our policy'),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    FontAwesomeIcons.circleInfo,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 20,
+                  ),
+                  const SizedBox(
+                    width: 7,
+                  ),
+                  const Text('Learn about our policy'),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                  'Before you can use Maya, please make sure to read our Terms and Conditions and Privacy Policy below.',
+                  style: Theme.of(context).textTheme.bodyMedium),
+              const SizedBox(
+                height: 30,
+              ),
+              const TCCardBox(),
+              const Spacer(),
+              Text(
+                'By continuing, I consent to the above Terms and Conditions and Privacy Policy.',
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodySmall!.apply(
+                      fontSizeDelta: 1.5,
+                    ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              AuthPrimaryBtn(
+                label: 'Continue',
+                onTap: () {
+                  context
+                      .read<PageControllerCubit>()
+                      .togglePage(pageController, index, index + 1);
+                },
+              ),
+              const SizedBox(
+                height: 70,
+              ),
             ],
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          Text(
-              'Before you can use Maya, please make sure to read our Terms and Conditions and Privacy Policy below.',
-              style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(
-            height: 30,
-          ),
-          const TCCardBox(),
-          const Spacer(),
-          Text(
-            'By continuing, I consent to the above Terms and Conditions and Privacy Policy.',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodySmall!.apply(
-                  fontSizeDelta: 1.5,
-                ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          AuthPrimaryBtn(
-            label: 'Continue',
-            onTap: () => nextPage(),
-          ),
-          const SizedBox(
-            height: 70,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
