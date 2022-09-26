@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:maya_clone_app/utils/constants.dart';
 import 'package:maya_clone_app/utils/upper_case_formatter.dart';
 
-class AuthInputText extends StatelessWidget {
+class AuthInputText extends StatefulWidget {
   final TextEditingController controller;
   final String label;
   final String? placeholder;
@@ -23,6 +23,13 @@ class AuthInputText extends StatelessWidget {
   });
 
   @override
+  State<AuthInputText> createState() => _AuthInputTextState();
+}
+
+class _AuthInputTextState extends State<AuthInputText> {
+  bool hasChanged = false;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -38,7 +45,7 @@ class AuthInputText extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  label,
+                  widget.label,
                   style: TextStyle(
                     fontSize: 12,
                     letterSpacing: 0.5,
@@ -47,9 +54,19 @@ class AuthInputText extends StatelessWidget {
                   ),
                 ),
                 TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      if (value != '') {
+                        hasChanged = true;
+                        return;
+                      }
+
+                      hasChanged = false;
+                    });
+                  },
                   enableSuggestions: false,
                   autocorrect: false,
-                  controller: controller,
+                  controller: widget.controller,
                   style: const TextStyle(
                     fontSize: 15,
                   ),
@@ -58,13 +75,13 @@ class AuthInputText extends StatelessWidget {
                     border: InputBorder.none,
                     contentPadding: const EdgeInsets.all(0.0),
                     isDense: true,
-                    hintText: placeholder,
+                    hintText: widget.placeholder,
                   ),
                   inputFormatters: [
                     UpperCaseFormatter(),
                   ],
-                  textInputAction: inputAction,
-                  enabled: isEnable ?? true,
+                  textInputAction: widget.inputAction,
+                  enabled: widget.isEnable ?? true,
                 ),
               ],
             ),
@@ -74,9 +91,9 @@ class AuthInputText extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: isError
+            child: widget.isError && !hasChanged
                 ? Text(
-                    errorText ?? '',
+                    widget.errorText ?? '',
                     style: TextStyle(
                       color: Colors.red,
                       fontSize: Theme.of(context).textTheme.bodySmall!.fontSize,

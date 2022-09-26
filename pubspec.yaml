@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore: ^3.4.8
   font_awesome_flutter: ^10.2.1
   email_validator: ^2.1.17
+  phone_number: ^1.0.0
 
 dev_dependencies:
   flutter_test:

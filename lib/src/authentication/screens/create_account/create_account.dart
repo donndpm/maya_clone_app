@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/create_account/create_account_bloc.dart';
 import '../../bloc/page_controller/page_controller_cubit.dart';
+
 import 'personal_dtl_screen.dart';
 import 'login_dtl_screen.dart';
 import 'data_privacy_screen.dart';
@@ -18,24 +19,14 @@ class CreateAccountScreen extends StatelessWidget {
 
   final pageController = PageController(
     initialPage: 0,
+    keepPage: false,
   );
-
-  var currentPage = 0;
 
   CreateAccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     const double kProgressWidth = 180;
-
-    nextPage() {
-      pageController.nextPage(
-        duration: const Duration(
-          milliseconds: 200,
-        ),
-        curve: Curves.easeIn,
-      );
-    }
 
     List<Widget> pageViews = [
       PersonalDtlScreen(
@@ -66,13 +57,8 @@ class CreateAccountScreen extends StatelessWidget {
         BlocProvider(create: (context) => CreateAccountBloc()),
       ],
       child: BlocListener<CreateAccountBloc, CreateAccountState>(
-        listener: (context, state) {
-          // TODO: implement listener
-        },
-        child: BlocConsumer<PageControllerCubit, int>(
-          listener: (context, index) {
-            // TODO: implement listener
-          },
+        listener: (context, state) {},
+        child: BlocBuilder<PageControllerCubit, int>(
           builder: (context, index) {
             return Scaffold(
               resizeToAvoidBottomInset: false,

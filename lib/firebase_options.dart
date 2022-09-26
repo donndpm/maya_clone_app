@@ -69,7 +69,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '745268134134',
     projectId: 'maya-clone-app',
     storageBucket: 'maya-clone-app.appspot.com',
-    iosClientId: '745268134134-m9mfh6iogr9825kf2ghao1g55eo1im24.apps.googleusercontent.com',
+    iosClientId:
+        '745268134134-m9mfh6iogr9825kf2ghao1g55eo1im24.apps.googleusercontent.com',
     iosBundleId: 'com.example.mayaCloneApp',
   );
 }
