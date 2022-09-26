@@ -79,7 +79,7 @@ class DataPrivacyScreen extends StatelessWidget {
                 onTap: () {
                   context
                       .read<PageControllerCubit>()
-                      .togglePage(pageController, index, index + 1);
+                      .togglePage(context, pageController, index, index + 1);
                 },
               ),
               const SizedBox(

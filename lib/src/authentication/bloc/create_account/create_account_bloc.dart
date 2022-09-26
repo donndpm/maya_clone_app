@@ -8,8 +8,13 @@ part 'create_account_state.dart';
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   CreateAccountBloc() : super(CreateAccountInit()) {
+    on<NewPageTriggered>(newPageTriggered);
     on<ValidatePersonalDtlFields>(validatePersonalDtlFields);
     on<ValidateLoginDtlFields>(validateLoginDtlFields);
+  }
+
+  newPageTriggered(NewPageTriggered event, Emitter emit) {
+    emit(CreateAccountInit());
   }
 
   validatePersonalDtlFields(ValidatePersonalDtlFields event, Emitter emit) {
@@ -17,8 +22,6 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     String lastNameErrorMsg = '';
     String emailErrorMsg = '';
     bool isError = false;
-
-    emit(CreateAccountInit());
 
     if (event.firstName == '') {
       firstNameErrorMsg = 'Please fill in your first name.';
@@ -54,8 +57,6 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     String passwordErrorMsg = '';
 
     bool isError = false;
-
-    emit(CreateAccountInit());
 
     if (event.phoneNumber == '') {
       phoneNumberErrorMsg = 'Please fill in your phone number.';

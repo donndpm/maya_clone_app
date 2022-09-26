@@ -7,6 +7,8 @@ abstract class CreateAccountEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class NewPageTriggered extends CreateAccountEvent {}
+
 class ValidatePersonalDtlFields extends CreateAccountEvent {
   final String firstName;
   final String lastName;

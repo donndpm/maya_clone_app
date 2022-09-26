@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maya_clone_app/src/authentication/bloc/create_account/create_account_bloc.dart';
-import 'package:maya_clone_app/src/authentication/bloc/page_controller/page_controller_cubit.dart';
+import 'package:maya_clone_app/src/authentication/bloc/page_controller/create_account_page_controller_cubit.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_primary_text_btn.dart';
 
@@ -23,13 +23,13 @@ class PersonalDtlScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PageControllerCubit, int>(
+    return BlocBuilder<CreateAccountPageControllerCubit, int>(
       builder: (context, index) {
         return BlocConsumer<CreateAccountBloc, CreateAccountState>(
           listener: (context, state) {
             if (state is TextFieldValid) {
-              BlocProvider.of<PageControllerCubit>(context)
-                  .togglePage(pageController, index, index + 1);
+              BlocProvider.of<CreateAccountPageControllerCubit>(context)
+                  .togglePage(context, pageController, index, index + 1);
             }
           },
           builder: (context, state) {

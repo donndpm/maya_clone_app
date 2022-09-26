@@ -28,7 +28,7 @@ class LoginDtlScreen extends StatelessWidget {
             if (state is TextFieldValid) {
               context
                   .read<PageControllerCubit>()
-                  .togglePage(pageController, index, index + 1);
+                  .togglePage(context, pageController, index, index + 1);
             }
           },
           builder: (context, state) {

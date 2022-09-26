@@ -74,7 +74,7 @@ class CreateAccountScreen extends StatelessWidget {
                     }
 
                     BlocProvider.of<PageControllerCubit>(context)
-                        .togglePage(pageController, index, index - 1);
+                        .togglePage(context, pageController, index, index - 1);
                   },
                   icon: const Icon(FontAwesomeIcons.arrowLeft),
                 ),
