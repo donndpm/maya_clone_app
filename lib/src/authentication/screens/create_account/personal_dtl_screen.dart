@@ -118,7 +118,6 @@ class PersonalDtlScreen extends StatelessWidget {
                     label: 'Continue',
                     isEnable: true,
                     onTap: () {
-                      debugPrint('tap tap tap');
                       context
                           .read<CreateAccountBloc>()
                           .add(ValidatePersonalDtlFields(

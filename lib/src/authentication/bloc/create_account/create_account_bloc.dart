@@ -9,13 +9,10 @@ part 'create_account_event.dart';
 part 'create_account_state.dart';
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
-  final AuthRepository authRepository;
-
-  CreateAccountBloc(this.authRepository) : super(CreateAccountInitial()) {
+  CreateAccountBloc() : super(CreateAccountInitial()) {
     on<NewPageTriggered>(newPageTriggered);
     on<ValidatePersonalDtlFields>(validatePersonalDtlFields);
     on<ValidateLoginDtlFields>(validateLoginDtlFields);
-    on<TriggerCreateAccount>(triggerCreateAccount);
   }
 
   newPageTriggered(NewPageTriggered event, Emitter emit) {
@@ -78,20 +75,5 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     }
 
     emit(TextFieldValid());
-  }
-
-  triggerCreateAccount(TriggerCreateAccount event, Emitter emit) async {
-    debugPrint('trigger create account');
-    emit(CreateAccountLoading());
-
-    try {
-      final user = await authRepository.createUser(event.email, event.password);
-      await authRepository.updateDisplayName(
-          user, event.firstName, event.lastName);
-      emit(CreateAccountAuthenticated());
-    } catch (err) {
-      emit(CreateAccountError(err.toString()));
-      emit(CreateAccountInitial());
-    }
   }
 }

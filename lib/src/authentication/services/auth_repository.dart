@@ -10,8 +10,6 @@ class AuthRepository {
           email: email, password: password);
       return user.user;
     } on FirebaseAuthException catch (err) {
-      debugPrint(password);
-      debugPrint(err.code.toString());
       throw Exception(err.code);
     }
   }

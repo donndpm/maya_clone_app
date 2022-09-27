@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
                 placeholder: 'Enter your registered email',
                 controller: phoneNumberController),
             AuthHiddenText(
-                label: 'label',
+                label: 'Password',
                 placeholder: 'Enter password',
                 controller: passwordController),
             AuthPrimaryTextBtn(

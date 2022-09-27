@@ -8,8 +8,19 @@ class WrapperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          FirebaseAuth.instance.currentUser?.displayName ?? 'No user',
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              FirebaseAuth.instance.currentUser?.displayName ?? 'No user',
+            ),
+            ElevatedButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              child: const Text('Log out'),
+            ),
+          ],
         ),
       ),
     );

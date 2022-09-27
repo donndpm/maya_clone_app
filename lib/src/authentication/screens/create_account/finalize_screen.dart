@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:maya_clone_app/src/authentication/bloc/create_account/create_account_bloc.dart';
+import 'package:maya_clone_app/src/authentication/bloc/auth/auth_bloc.dart';
+
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 import 'package:maya_clone_app/src/wrapper/screens/wrapper_screen.dart';
 
@@ -25,9 +26,9 @@ class FinalizeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<CreateAccountBloc, CreateAccountState>(
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is CreateAccountAuthenticated) {
+        if (state is Authenticated) {
           Navigator.of(context).pop();
           Navigator.push(
             context,
@@ -106,19 +107,15 @@ class FinalizeScreen extends StatelessWidget {
                 controller: emailController,
                 isEnable: false,
               ),
-              AuthInputText(
-                label: 'password',
-                controller: passwordController,
-                isEnable: false,
-              ),
               const Spacer(),
               AuthPrimaryBtn(
-                label: state is CreateAccountLoading
-                    ? 'Loading. Please wait...'
-                    : 'PROCEED',
+                label: state is Loading ? 'Loading. Please wait...' : 'PROCEED',
                 onTap: () {
-                  debugPrint('proceed is tapped.');
-                  context.read<CreateAccountBloc>().add(
+                  if (state is Loading) {
+                    return;
+                  }
+
+                  context.read<AuthBloc>().add(
                         TriggerCreateAccount(
                           emailController.value.text,
                           passwordController.value.text,
