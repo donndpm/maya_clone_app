@@ -40,3 +40,21 @@ class ValidateLoginDtlFields extends CreateAccountEvent {
         password,
       ];
 }
+
+class TriggerCreateAccount extends CreateAccountEvent {
+  final String email;
+  final String password;
+  final String firstName;
+  final String lastName;
+
+  const TriggerCreateAccount(
+      this.email, this.password, this.firstName, this.lastName);
+
+  @override
+  List<Object> get props => [
+        email,
+        password,
+        firstName,
+        lastName,
+      ];
+}

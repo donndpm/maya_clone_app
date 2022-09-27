@@ -2,15 +2,20 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:maya_clone_app/src/authentication/services/auth_repository.dart';
 
 part 'create_account_event.dart';
 part 'create_account_state.dart';
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
-  CreateAccountBloc() : super(CreateAccountInitial()) {
+  final AuthRepository authRepository;
+
+  CreateAccountBloc(this.authRepository) : super(CreateAccountInitial()) {
     on<NewPageTriggered>(newPageTriggered);
     on<ValidatePersonalDtlFields>(validatePersonalDtlFields);
     on<ValidateLoginDtlFields>(validateLoginDtlFields);
+    on<TriggerCreateAccount>(triggerCreateAccount);
   }
 
   newPageTriggered(NewPageTriggered event, Emitter emit) {
@@ -20,7 +25,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   validatePersonalDtlFields(ValidatePersonalDtlFields event, Emitter emit) {
     String firstNameErrorMsg = '';
     String lastNameErrorMsg = '';
-    String emailErrorMsg = '';
+
     bool isError = false;
 
     if (event.firstName == '') {
@@ -73,5 +78,20 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     }
 
     emit(TextFieldValid());
+  }
+
+  triggerCreateAccount(TriggerCreateAccount event, Emitter emit) async {
+    debugPrint('trigger create account');
+    emit(CreateAccountLoading());
+
+    try {
+      final user = await authRepository.createUser(event.email, event.password);
+      await authRepository.updateDisplayName(
+          user, event.firstName, event.lastName);
+      emit(CreateAccountAuthenticated());
+    } catch (err) {
+      emit(CreateAccountError(err.toString()));
+      emit(CreateAccountInitial());
+    }
   }
 }

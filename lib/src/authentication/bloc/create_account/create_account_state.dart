@@ -36,4 +36,15 @@ class TextFieldError extends CreateAccountState {
       ];
 }
 
+class CreateAccountLoading extends CreateAccountState {}
+
 class CreateAccountAuthenticated extends CreateAccountState {}
+
+class CreateAccountError extends CreateAccountState {
+  final String error;
+
+  const CreateAccountError(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

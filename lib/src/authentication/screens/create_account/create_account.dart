@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maya_clone_app/src/authentication/services/auth_repository.dart';
 import '../../bloc/create_account/create_account_bloc.dart';
 import '../../bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 
@@ -48,13 +49,16 @@ class CreateAccountScreen extends StatelessWidget {
         lastNameController: lastNameController,
         emailController: emailController,
         phoneNumberController: phoneNumberController,
+        passwordController: passwordController,
       ),
     ];
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => CreateAccountPageControllerCubit()),
-        BlocProvider(create: (context) => CreateAccountBloc()),
+        BlocProvider(
+            create: (context) =>
+                CreateAccountBloc(context.read<AuthRepository>())),
       ],
       child: BlocListener<CreateAccountBloc, CreateAccountState>(
         listener: (context, state) {},

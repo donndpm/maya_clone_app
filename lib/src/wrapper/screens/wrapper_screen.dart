@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class WrapperScreen extends StatelessWidget {
@@ -5,10 +6,10 @@ class WrapperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Text(
-          'Wrapper Screen',
+          FirebaseAuth.instance.currentUser?.displayName ?? 'No user',
         ),
       ),
     );
