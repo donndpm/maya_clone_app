@@ -7,14 +7,14 @@ part 'create_account_event.dart';
 part 'create_account_state.dart';
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
-  CreateAccountBloc() : super(CreateAccountInit()) {
+  CreateAccountBloc() : super(CreateAccountInitial()) {
     on<NewPageTriggered>(newPageTriggered);
     on<ValidatePersonalDtlFields>(validatePersonalDtlFields);
     on<ValidateLoginDtlFields>(validateLoginDtlFields);
   }
 
   newPageTriggered(NewPageTriggered event, Emitter emit) {
-    emit(CreateAccountInit());
+    emit(CreateAccountInitial());
   }
 
   validatePersonalDtlFields(ValidatePersonalDtlFields event, Emitter emit) {
@@ -33,17 +33,11 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
       isError = true;
     }
 
-    if (event.email == '') {
-      emailErrorMsg = 'Please fill in your email address.';
-      isError = true;
-    }
-
     if (isError) {
       emit(
         TextFieldError(
           firstNameErrorMsg: firstNameErrorMsg,
           lastNameErrorMsg: lastNameErrorMsg,
-          emailErrorMsg: emailErrorMsg,
         ),
       );
       return;
@@ -53,13 +47,13 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   }
 
   validateLoginDtlFields(ValidateLoginDtlFields event, Emitter emit) {
-    String phoneNumberErrorMsg = '';
+    String emailErrorMsg = '';
     String passwordErrorMsg = '';
 
     bool isError = false;
 
-    if (event.phoneNumber == '') {
-      phoneNumberErrorMsg = 'Please fill in your phone number.';
+    if (event.email == '') {
+      emailErrorMsg = 'Please fill in your email address.';
       isError = true;
     }
 
@@ -71,7 +65,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     if (isError) {
       emit(
         TextFieldError(
-          phoneNumberErrorMsg: phoneNumberErrorMsg,
+          emailErrorMsg: emailErrorMsg,
           passwordErrorMsg: passwordErrorMsg,
         ),
       );

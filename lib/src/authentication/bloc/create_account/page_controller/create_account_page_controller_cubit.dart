@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maya_clone_app/src/authentication/bloc/create_account/create_account_bloc.dart';
 
-class PageControllerCubit extends Cubit<int> {
-  PageControllerCubit() : super(0);
+class CreateAccountPageControllerCubit extends Cubit<int> {
+  CreateAccountPageControllerCubit() : super(0);
 
   togglePage(BuildContext context, PageController controller, int oldIndex,
       int newIndex) {

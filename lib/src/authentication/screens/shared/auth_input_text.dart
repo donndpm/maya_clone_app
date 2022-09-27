@@ -102,6 +102,9 @@ class _AuthInputTextState extends State<AuthInputText> {
                 : Container(),
           ),
         ),
+        const SizedBox(
+          height: 10.0,
+        ),
       ],
     );
   }

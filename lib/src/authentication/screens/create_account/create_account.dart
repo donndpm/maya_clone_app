@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/create_account/create_account_bloc.dart';
-import '../../bloc/page_controller/page_controller_cubit.dart';
+import '../../bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 
 import 'personal_dtl_screen.dart';
 import 'login_dtl_screen.dart';
@@ -37,7 +37,7 @@ class CreateAccountScreen extends StatelessWidget {
       ),
       LoginDtlScreen(
         pageController: pageController,
-        phoneNumberController: phoneNumberController,
+        emailController: emailController,
         passwordController: passwordController,
       ),
       DataPrivacyScreen(
@@ -53,12 +53,12 @@ class CreateAccountScreen extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => PageControllerCubit()),
+        BlocProvider(create: (context) => CreateAccountPageControllerCubit()),
         BlocProvider(create: (context) => CreateAccountBloc()),
       ],
       child: BlocListener<CreateAccountBloc, CreateAccountState>(
         listener: (context, state) {},
-        child: BlocBuilder<PageControllerCubit, int>(
+        child: BlocBuilder<CreateAccountPageControllerCubit, int>(
           builder: (context, index) {
             return Scaffold(
               resizeToAvoidBottomInset: false,
@@ -73,7 +73,7 @@ class CreateAccountScreen extends StatelessWidget {
                       return;
                     }
 
-                    BlocProvider.of<PageControllerCubit>(context)
+                    BlocProvider.of<CreateAccountPageControllerCubit>(context)
                         .togglePage(context, pageController, index, index - 1);
                   },
                   icon: const Icon(FontAwesomeIcons.arrowLeft),

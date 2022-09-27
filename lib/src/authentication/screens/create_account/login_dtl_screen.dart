@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maya_clone_app/src/authentication/bloc/page_controller/page_controller_cubit.dart';
+import 'package:maya_clone_app/src/authentication/bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 
 import '../../bloc/create_account/create_account_bloc.dart';
@@ -9,39 +9,39 @@ import '../shared/auth_primary_btn.dart';
 
 class LoginDtlScreen extends StatelessWidget {
   final PageController pageController;
-  final TextEditingController phoneNumberController;
+  final TextEditingController emailController;
   final TextEditingController passwordController;
 
   const LoginDtlScreen({
     super.key,
     required this.pageController,
-    required this.phoneNumberController,
+    required this.emailController,
     required this.passwordController,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PageControllerCubit, int>(
+    return BlocBuilder<CreateAccountPageControllerCubit, int>(
       builder: (context, index) {
         return BlocConsumer<CreateAccountBloc, CreateAccountState>(
           listener: (context, state) {
             if (state is TextFieldValid) {
               context
-                  .read<PageControllerCubit>()
+                  .read<CreateAccountPageControllerCubit>()
                   .togglePage(context, pageController, index, index + 1);
             }
           },
           builder: (context, state) {
-            String? phoneNumberErrorMsg;
+            String? emailErrorMsg;
             String? passwordErrorMsg;
 
-            bool? isPhoneNumberError;
+            bool? isEmailError;
             bool? isPasswordError;
 
             if (state is TextFieldError) {
-              if (state.phoneNumberErrorMsg != '') {
-                isPhoneNumberError = true;
-                phoneNumberErrorMsg = state.phoneNumberErrorMsg;
+              if (state.emailErrorMsg != '') {
+                isEmailError = true;
+                emailErrorMsg = state.emailErrorMsg;
               }
               if (state.passwordErrorMsg != '') {
                 isPasswordError = true;
@@ -82,16 +82,21 @@ class LoginDtlScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
+                  // AuthInputText(
+                  //   label: 'Phone number',
+                  //   placeholder: '09xx-xxx-xxxx',
+                  //   controller: phoneNumberController,
+                  //   inputAction: TextInputAction.next,
+                  //   isError: isPhoneNumberError ?? false,
+                  //   errorText: phoneNumberErrorMsg,
+                  // ),
                   AuthInputText(
-                    label: 'Phone number',
-                    placeholder: '09xx-xxx-xxxx',
-                    controller: phoneNumberController,
-                    inputAction: TextInputAction.next,
-                    isError: isPhoneNumberError ?? false,
-                    errorText: phoneNumberErrorMsg,
-                  ),
-                  const SizedBox(
-                    height: 10,
+                    label: 'Email',
+                    placeholder: 'Enter email address',
+                    controller: emailController,
+                    inputAction: TextInputAction.done,
+                    isError: isEmailError ?? false,
+                    errorText: emailErrorMsg,
                   ),
                   AuthHiddenText(
                     label: 'Password',
@@ -105,8 +110,7 @@ class LoginDtlScreen extends StatelessWidget {
                       label: 'Continue',
                       onTap: () {
                         context.read<CreateAccountBloc>().add(
-                              ValidateLoginDtlFields(
-                                  phoneNumberController.value.text,
+                              ValidateLoginDtlFields(emailController.value.text,
                                   passwordController.value.text),
                             );
                       }),

@@ -77,28 +77,14 @@ class FinalizeScreen extends StatelessWidget {
             controller: firstNameController,
             isEnable: false,
           ),
-          const SizedBox(
-            height: 8,
-          ),
           AuthInputText(
             label: 'Last name',
             controller: lastNameController,
             isEnable: false,
           ),
-          const SizedBox(
-            height: 8,
-          ),
           AuthInputText(
             label: 'Email address',
             controller: emailController,
-            isEnable: false,
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          AuthInputText(
-            label: 'Phone number',
-            controller: phoneNumberController,
             isEnable: false,
           ),
           const Spacer(),

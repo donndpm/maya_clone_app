@@ -106,6 +106,9 @@ class _AuthHiddenTextState extends State<AuthHiddenText> {
                 : Container(),
           ),
         ),
+        const SizedBox(
+          height: 10.0,
+        ),
       ],
     );
   }

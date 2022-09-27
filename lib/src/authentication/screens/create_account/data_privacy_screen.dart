@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 import 'package:maya_clone_app/utils/constants.dart';
 
-import '../../bloc/page_controller/page_controller_cubit.dart';
+import '../../bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 import '../shared/auth_hidden_text.dart';
 import '../shared/auth_primary_btn.dart';
 
@@ -18,7 +18,7 @@ class DataPrivacyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PageControllerCubit, int>(
+    return BlocBuilder<CreateAccountPageControllerCubit, int>(
       builder: (context, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -78,7 +78,7 @@ class DataPrivacyScreen extends StatelessWidget {
                 label: 'Continue',
                 onTap: () {
                   context
-                      .read<PageControllerCubit>()
+                      .read<CreateAccountPageControllerCubit>()
                       .togglePage(context, pageController, index, index + 1);
                 },
               ),

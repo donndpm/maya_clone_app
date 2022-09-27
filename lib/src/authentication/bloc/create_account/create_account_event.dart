@@ -12,34 +12,31 @@ class NewPageTriggered extends CreateAccountEvent {}
 class ValidatePersonalDtlFields extends CreateAccountEvent {
   final String firstName;
   final String lastName;
-  final String email;
 
   const ValidatePersonalDtlFields(
     this.firstName,
     this.lastName,
-    this.email,
   );
 
   @override
   List<Object> get props => [
         firstName,
         lastName,
-        email,
       ];
 }
 
 class ValidateLoginDtlFields extends CreateAccountEvent {
-  final String phoneNumber;
+  final String email;
   final String password;
 
   const ValidateLoginDtlFields(
-    this.phoneNumber,
+    this.email,
     this.password,
   );
 
   @override
   List<Object> get props => [
-        phoneNumber,
+        email,
         password,
       ];
 }

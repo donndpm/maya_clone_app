@@ -7,7 +7,7 @@ abstract class CreateAccountState extends Equatable {
   List<Object> get props => [];
 }
 
-class CreateAccountInit extends CreateAccountState {}
+class CreateAccountInitial extends CreateAccountState {}
 
 class TextFieldValid extends CreateAccountState {}
 
@@ -35,3 +35,5 @@ class TextFieldError extends CreateAccountState {
         passwordErrorMsg,
       ];
 }
+
+class CreateAccountAuthenticated extends CreateAccountState {}

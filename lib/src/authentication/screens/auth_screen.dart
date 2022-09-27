@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maya_clone_app/src/authentication/screens/create_account/create_account.dart';
+import 'package:maya_clone_app/src/authentication/screens/login/login.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_primary_btn.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_secondary_btn.dart';
 
@@ -30,7 +31,17 @@ class AuthScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              AuthSecondaryBtn(label: 'Login'),
+              AuthSecondaryBtn(
+                label: 'Login',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginScreen(),
+                    ),
+                  );
+                },
+              ),
               const SizedBox(
                 height: 70,
               ),

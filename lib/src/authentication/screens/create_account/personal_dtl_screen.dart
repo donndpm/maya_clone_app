@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maya_clone_app/src/authentication/bloc/create_account/create_account_bloc.dart';
-import 'package:maya_clone_app/src/authentication/bloc/page_controller/create_account_page_controller_cubit.dart';
+import 'package:maya_clone_app/src/authentication/bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_input_text.dart';
 import 'package:maya_clone_app/src/authentication/screens/shared/auth_primary_text_btn.dart';
 
@@ -97,9 +97,6 @@ class PersonalDtlScreen extends StatelessWidget {
                     isError: isFirstNameError ?? false,
                     errorText: firstNameErrorMsg,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   AuthInputText(
                     label: 'Last name',
                     placeholder: 'Enter last name',
@@ -108,17 +105,14 @@ class PersonalDtlScreen extends StatelessWidget {
                     isError: isLastNameError ?? false,
                     errorText: lastNameErrorMsg,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  AuthInputText(
-                    label: 'Email',
-                    placeholder: 'Enter email address',
-                    controller: emailController,
-                    inputAction: TextInputAction.done,
-                    isError: isEmailError ?? false,
-                    errorText: emailErrorMsg,
-                  ),
+                  // AuthInputText(
+                  //   label: 'Email',
+                  //   placeholder: 'Enter email address',
+                  //   controller: emailController,
+                  //   inputAction: TextInputAction.done,
+                  //   isError: isEmailError ?? false,
+                  //   errorText: emailErrorMsg,
+                  // ),
                   const Spacer(),
                   AuthPrimaryBtn(
                     label: 'Continue',
@@ -130,7 +124,6 @@ class PersonalDtlScreen extends StatelessWidget {
                           .add(ValidatePersonalDtlFields(
                             firstNameController.value.text,
                             lastNameController.value.text,
-                            emailController.value.text,
                           ));
                     },
                   ),
