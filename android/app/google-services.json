@@ -29,6 +29,13 @@
             {
               "client_id": "745268134134-fjojli7gis83fj7qtb0mlf56bpn94tnf.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "745268134134-m9mfh6iogr9825kf2ghao1g55eo1im24.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mayaCloneApp"
+              }
             }
           ]
         }
