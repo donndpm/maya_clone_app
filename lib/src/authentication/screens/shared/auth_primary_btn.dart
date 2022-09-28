@@ -29,7 +29,8 @@ class AuthPrimaryBtn extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(kBorderRaduis),
           color: isEnable
-              ? Theme.of(context).colorScheme.primary.withGreen(163)
+              ? Theme.of(context).colorScheme.primary
+              // .withGreen(163)
               : Theme.of(context).colorScheme.secondary,
         ),
         child: Center(

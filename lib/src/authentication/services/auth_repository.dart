@@ -20,6 +20,8 @@ class AuthRepository {
           email: email, password: password);
     } on FirebaseAuthException catch (err) {
       throw Exception(err.code);
+    } catch (err) {
+      throw Exception(err);
     }
   }
 
@@ -27,6 +29,16 @@ class AuthRepository {
       User? user, String firstName, String lastName) async {
     try {
       await user?.updateDisplayName('$firstName $lastName');
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  Future<void> signOutUser() async {
+    try {
+      await _firebaseAuth.signOut();
+    } on FirebaseAuthException catch (err) {
+      throw Exception(err);
     } catch (err) {
       throw Exception(err);
     }

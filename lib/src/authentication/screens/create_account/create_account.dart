@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maya_clone_app/src/authentication/bloc/auth/auth_bloc.dart';
 import 'package:maya_clone_app/src/authentication/services/auth_repository.dart';
+import '../../../wrapper/screens/wrapper_screen.dart';
 import '../../bloc/create_account/create_account_bloc.dart';
 import '../../bloc/create_account/page_controller/create_account_page_controller_cubit.dart';
 
@@ -61,8 +62,18 @@ class CreateAccountScreen extends StatelessWidget {
         BlocProvider(
             create: (context) => AuthBloc(context.read<AuthRepository>())),
       ],
-      child: BlocListener<CreateAccountBloc, CreateAccountState>(
-        listener: (context, state) {},
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is Authenticated) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const WrapperScreen(),
+                fullscreenDialog: true,
+              ),
+            );
+          }
+        },
         child: BlocBuilder<CreateAccountPageControllerCubit, int>(
           builder: (context, index) {
             return Scaffold(

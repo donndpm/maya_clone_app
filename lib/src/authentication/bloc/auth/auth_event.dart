@@ -7,13 +7,13 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TriggerCreateAccount extends AuthEvent {
+class CreateAccountEvent extends AuthEvent {
   final String email;
   final String password;
   final String firstName;
   final String lastName;
 
-  const TriggerCreateAccount(
+  const CreateAccountEvent(
     this.email,
     this.password,
     this.firstName,
@@ -29,11 +29,11 @@ class TriggerCreateAccount extends AuthEvent {
       ];
 }
 
-class TriggerLoginUser extends AuthEvent {
+class LoginEvent extends AuthEvent {
   final String email;
   final String password;
 
-  const TriggerLoginUser(
+  const LoginEvent(
     this.email,
     this.password,
   );
@@ -44,3 +44,5 @@ class TriggerLoginUser extends AuthEvent {
         password,
       ];
 }
+
+class SignOutEvent extends AuthEvent {}

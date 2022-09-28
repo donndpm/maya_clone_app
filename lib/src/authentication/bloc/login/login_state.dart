@@ -9,20 +9,20 @@ abstract class LoginState extends Equatable {
 
 class LoginInitial extends LoginState {}
 
-class LoginDtlAuthenticated extends LoginState {}
+class LoginDtlFieldValid extends LoginState {}
 
 class TextFieldError extends LoginState {
-  final String phoneNumber;
-  final String password;
+  final String emailErrorMsg;
+  final String passwordErrorMsg;
 
   const TextFieldError(
-    this.phoneNumber,
-    this.password,
+    this.emailErrorMsg,
+    this.passwordErrorMsg,
   );
 
   @override
   List<Object> get props => [
-        phoneNumber,
-        password,
+        emailErrorMsg,
+        passwordErrorMsg,
       ];
 }

@@ -9,11 +9,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
   AuthBloc(this.authRepository) : super(UnAuthenticated()) {
-    on<TriggerCreateAccount>(triggerCreateAccount);
-    on<TriggerLoginUser>(triggerLoginUser);
+    on<CreateAccountEvent>(triggerCreateAccount);
+    on<LoginEvent>(triggerLoginUser);
+    on<SignOutEvent>(triggerSignOut);
   }
 
-  triggerCreateAccount(TriggerCreateAccount event, Emitter emit) async {
+  triggerCreateAccount(CreateAccountEvent event, Emitter emit) async {
     emit(Loading());
 
     try {
@@ -27,7 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  triggerLoginUser(TriggerLoginUser event, Emitter emit) async {
+  triggerLoginUser(LoginEvent event, Emitter emit) async {
     emit(Loading());
 
     try {
@@ -36,6 +37,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (err) {
       emit(AuthError(err.toString()));
       emit(UnAuthenticated());
+    }
+  }
+
+  triggerSignOut(SignOutEvent event, Emitter emit) async {
+    emit(Loading());
+    try {
+      await authRepository.signOutUser();
+      emit(UnAuthenticated());
+    } catch (err) {
+      emit(AuthError(err.toString()));
+      emit(Authenticated());
     }
   }
 }

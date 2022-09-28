@@ -8,6 +8,8 @@ import 'package:maya_clone_app/src/authentication/services/auth_repository.dart'
 import 'package:maya_clone_app/src/wrapper/screens/wrapper_screen.dart';
 import 'package:maya_clone_app/utils/themes.dart';
 
+import 'src/authentication/bloc/auth/auth_bloc.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -21,10 +23,13 @@ class CoreApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => AuthRepository(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: maThemeData,
-        home: const MyApp(),
+      child: BlocProvider(
+        create: (context) => AuthBloc(context.read<AuthRepository>()),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: maThemeData,
+          home: const MyApp(),
+        ),
       ),
     );
   }

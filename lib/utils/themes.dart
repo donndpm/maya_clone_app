@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final maThemeData = ThemeData(
   fontFamily: 'Mukta',
-  colorSchemeSeed: Colors.green,
+  colorSchemeSeed: Colors.blue,
   brightness: Brightness.light,
-  useMaterial3: true,
+  // useMaterial3: true,
 );

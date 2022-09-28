@@ -26,19 +26,7 @@ class FinalizeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is Authenticated) {
-          Navigator.of(context).pop();
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const WrapperScreen(),
-              fullscreenDialog: true,
-            ),
-          );
-        }
-      },
+    return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -116,7 +104,7 @@ class FinalizeScreen extends StatelessWidget {
                   }
 
                   context.read<AuthBloc>().add(
-                        TriggerCreateAccount(
+                        CreateAccountEvent(
                           emailController.value.text,
                           passwordController.value.text,
                           firstNameController.value.text,
